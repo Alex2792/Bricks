@@ -3,8 +3,10 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.NumberFormat;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Scanner;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -30,7 +32,7 @@ public class Main {
 		ventanaInicial.setLocationByPlatform(true);
 		ventanaInicial.setSize(800, 500);
 		ventanaInicial.setVisible(true);
-		
+
 		StringBuilder buff = new StringBuilder();
 		buff.append("<html><table>");
 		buff.append(text);
@@ -50,18 +52,53 @@ public class Main {
 			Integer value = propiedades.get(name);
 			NumberFormat format = NumberFormat.getCurrencyInstance();
 			String currency = format.format(value);
-			
+
 			text = text + key + " - " + currency + "\n";
 		}
 
 		//System.out.println(text);
 		System.out.println("Las propiedades disponibles son las siguientes (los precios son por ladrillo): \n\n" + text);
-		
+
+		Carrito shoppingCart = new Carrito();
+
+		Scanner scan = new Scanner(System.in);
+
 		while(true){
-			System.out.println("De cual propiedad quieres comprar?");
-		}
-		
-		
+
+			System.out.println("Que desea hacer?\n1)Agregar al carrito\n2)Editar carrito\n3)Ver carrito\n4)Proceder a pagar");
+
+			int opcion = scan.nextInt();
+
+			switch(opcion) {
+			case 1:
+				System.out.println("Estas son las propiedades disponibles y sus costos por ladrillo: \n\n" + text);
+
+				System.out.println("De cual propiedad quieres comprar?");
+				String s = scan.next();
+
+				System.out.println("Cuantos queires comprar?");
+				int i = scan.nextInt();
+
+				shoppingCart.putItem(s, i);
+
+				break;
+			case 2:
+				break;
+			case 3:
+				System.out.println("Tu carrito tiene: \n" + shoppingCart.showCarrito());
+
+				break;
+			case 4:
+				String[] keys = shoppingCart.getKeys();
+				System.out.println(Arrays.toString(keys));
+				break;
+			default:
+				System.out.println("Opcion invalida");
+				break;
+			}
+
+		}	
+
 	}
 
 	public static HashMap<String, Integer> filetoHash(String docPath){
