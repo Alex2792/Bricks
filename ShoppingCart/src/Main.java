@@ -63,9 +63,15 @@ public class Main {
 
 		Scanner scan = new Scanner(System.in);
 
-		while(true){
+		int flag = 0;
 
-			System.out.println("Que desea hacer?\n1)Agregar al carrito\n2)Editar carrito\n3)Ver carrito\n4)Proceder a pagar");
+		while(true){
+			if(flag == 1) {
+				scan.close();
+				break;
+			}
+
+			System.out.println("Que deseas hacer?\n1)Agregar al carrito\n2)Ver y editar carrito\n3)Proceder a pagar");
 
 			int opcion = scan.nextInt();
 
@@ -76,21 +82,39 @@ public class Main {
 				System.out.println("De cual propiedad quieres comprar?");
 				String s = scan.next();
 
-				System.out.println("Cuantos queires comprar?");
+				System.out.println("Cuantos ladrillos quieres comprar?");
 				int i = scan.nextInt();
 
 				shoppingCart.putItem(s, i);
 
 				break;
-			case 2:
-				break;
-			case 3:
-				System.out.println("Tu carrito tiene: \n" + shoppingCart.showCarrito());
+			case 2:				
+				System.out.println("Tu carrito tiene: \n");
+				
+				String[] keys = shoppingCart.getKeys();
+				
+				String imprimirCarrito = "Propiedad - Cantidad - Valor $\n";
+				
+				for(int loop=0; loop<keys.length;loop++) {
+					Integer valorDinero = propiedades.get(keys[loop]);
+					NumberFormat formatDinero = NumberFormat.getCurrencyInstance();
+					String stringDinero = formatDinero.format(valorDinero);
+					
+					imprimirCarrito = imprimirCarrito + keys[loop] + " - " + shoppingCart.getCantidad(keys[loop]) + " - " + stringDinero + "\n";
+				}
+				
+				System.out.println(imprimirCarrito);
+				
+				System.out.println("Cual propiedad quieres eliminar del carrito?");
+				s = scan.next();
+				
+				shoppingCart.pullItem(s);
 
 				break;
-			case 4:
-				String[] keys = shoppingCart.getKeys();
-				System.out.println(Arrays.toString(keys));
+			case 3:
+
+
+				flag = 1;
 				break;
 			default:
 				System.out.println("Opcion invalida");
@@ -128,9 +152,9 @@ public class Main {
 			e.printStackTrace();
 		} 
 
-
 		return mapBuffer;
-
 	}
 
+	
 }
+

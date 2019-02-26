@@ -15,23 +15,8 @@ public class Carrito{
 		carrito.put(propiedad, cantidad);		
 	}
 
-	public String showCarrito() {
-
-
-		String text = "(Proiedad - Cantidad)\n";		
-
-		for (String name: carrito.keySet()){
-
-			String key =name.toString();
-			Integer value = carrito.get(name);			
-			text = text + key + " - " + value + "\n";
-		}
-
-		return text;
-
-	}
-
 	public void pullItem(String key) {
+		carrito.remove(key);
 
 	}
 	
@@ -43,9 +28,7 @@ public class Carrito{
 	}
 	
 	public int getCantidad(String key) {
-		int cantidad = 0;
-
-
+		int cantidad = carrito.get(key);
 
 		return cantidad;		
 	}
