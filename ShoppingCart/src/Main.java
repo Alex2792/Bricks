@@ -2,6 +2,7 @@ import java.awt.BorderLayout;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.util.Collections;
 import java.util.HashMap;
 
@@ -21,7 +22,7 @@ public class Main {
 
 		//System.out.println(Collections.singletonList(propiedades));	
 		//System.out.println(Collections.singletonList(cupones));
-
+		/**
 		JFrame ventanaInicial = new JFrame("100ladrillos");		
 		ventanaInicial.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -30,29 +31,36 @@ public class Main {
 		ventanaInicial.setSize(800, 500);
 		ventanaInicial.setVisible(true);
 		
-		String text = "";
-		
-		
-
-		for (String name: propiedades.keySet()){
-
-			String key =name.toString();
-			String value = propiedades.get(name).toString();
-			text = text + key + " " + value + "\n";
-		}
-		
-		//JOptionPane.showMessageDialog(ventanaInicial, text);
-		
-		
-		
 		StringBuilder buff = new StringBuilder();
 		buff.append("<html><table>");
 		buff.append(text);
 		buff.append("</table></html>");
-		
+
 		JLabel textLabel = new JLabel(buff.toString());
-		
+
 		ventanaInicial.getContentPane().add(textLabel);
+		 **/
+
+
+		String text = "";		
+
+		for (String name: propiedades.keySet()){
+
+			String key =name.toString();
+			Integer value = propiedades.get(name);
+			NumberFormat format = NumberFormat.getCurrencyInstance();
+			String currency = format.format(value);
+			
+			text = text + key + " - " + currency + "\n";
+		}
+
+		//System.out.println(text);
+		System.out.println("Las propiedades disponibles son las siguientes (los precios son por ladrillo): \n\n" + text);
+		
+		while(true){
+			System.out.println("De cual propiedad quieres comprar?");
+		}
+		
 		
 	}
 
@@ -79,8 +87,9 @@ public class Main {
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			System.out.println("Error");
 			e.printStackTrace();
-		}
+		} 
 
 
 		return mapBuffer;
