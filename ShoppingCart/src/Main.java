@@ -22,26 +22,6 @@ public class Main {
 		propiedades = filetoHash("propiedades.txt");
 		cupones = filetoHash("cupones.txt");
 
-		/**
-		JFrame ventanaInicial = new JFrame("100ladrillos");		
-		ventanaInicial.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		//Display
-		ventanaInicial.setLocationByPlatform(true);
-		ventanaInicial.setSize(800, 500);
-		ventanaInicial.setVisible(true);
-
-		StringBuilder buff = new StringBuilder();
-		buff.append("<html><table>");
-		buff.append(text);
-		buff.append("</table></html>");
-
-		JLabel textLabel = new JLabel(buff.toString());
-
-		ventanaInicial.getContentPane().add(textLabel);
-		 **/
-
-
 		String text = "";		
 
 		for (String name: propiedades.keySet()){
