@@ -16,17 +16,22 @@ public class Main {
 
 	public static void main(String[] args) {
 
+		//hasmaps para guardar la info de las propiedades y de los cupones
+		//esta info se obtiene de un txt
+		//el txt simula una base de datos 
 		HashMap<String, Integer> propiedades = new HashMap<String, Integer>();
 		HashMap<String, Integer> cupones = new HashMap<String, Integer>();
 
 		propiedades = filetoHash("propiedades.txt");
 		cupones = filetoHash("cupones.txt");
 
+		//se le da formato a las propiedades para ser impresas en pantalla
 		String text = "";		
 
 		for (String name: propiedades.keySet()){
-
 			String key =name.toString();
+			
+			//se le asigna formato de currency a los valores de las propiedades
 			Integer value = propiedades.get(name);
 			NumberFormat format = NumberFormat.getCurrencyInstance();
 			String currency = format.format(value);
@@ -34,13 +39,14 @@ public class Main {
 			text = text + key + " - " + currency + "\n";
 		}
 
-		//System.out.println(text);
 		System.out.println("Las propiedades disponibles son las siguientes (los precios son por ladrillo): \n\n" + text);
 
+		//se crea un nuevo objeto tipo Carrito
 		Carrito shoppingCart = new Carrito();
 
 		Scanner scan = new Scanner(System.in);
-
+		
+		//flag para saber en que momento salir del while
 		int flag = 0;
 
 		while(true){
@@ -49,6 +55,7 @@ public class Main {
 				break;
 			}
 
+			//impresion del menu de opciones
 			System.out.println("Que deseas hacer?\n1)Agregar al carrito\n2)Ver y editar carrito\n3)Proceder a pagar");
 
 			int opcion = scan.nextInt();
@@ -119,6 +126,9 @@ public class Main {
 
 	}
 
+	
+	//Funcion que recibe uin string el cual es el nombre del txt donde esta la info que se almacenara en un hasmap
+	//regresa el hasmap una vez leido la data del archivo txt
 	public static HashMap<String, Integer> filetoHash(String docPath){
 
 		HashMap<String, Integer> mapBuffer = new HashMap<String, Integer>();
@@ -149,6 +159,9 @@ public class Main {
 		return mapBuffer;
 	}
 
+	//Funcion que obtiene los valores del carrito y de las propiedades (hashmaps) y los concatena en un string con formato
+	//A los valores de cantidad les da formato de moneda
+	//Regresa el string listo para ser impreso
 	public static String impirmirCarrito(HashMap<String, Integer> p, Carrito car) {
 
 		String[] keys = car.getKeys();
