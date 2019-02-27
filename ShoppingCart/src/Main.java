@@ -89,30 +89,42 @@ public class Main {
 
 				break;
 			case 2:				
-				System.out.println("Tu carrito tiene: \n");
-				
-				String[] keys = shoppingCart.getKeys();
-				
-				String imprimirCarrito = "Propiedad - Cantidad - Valor $\n";
-				
-				for(int loop=0; loop<keys.length;loop++) {
-					Integer valorDinero = propiedades.get(keys[loop]);
-					NumberFormat formatDinero = NumberFormat.getCurrencyInstance();
-					String stringDinero = formatDinero.format(valorDinero);
-					
-					imprimirCarrito = imprimirCarrito + keys[loop] + " - " + shoppingCart.getCantidad(keys[loop]) + " - " + stringDinero + "\n";
-				}
-				
-				System.out.println(imprimirCarrito);
-				
+
+
+				System.out.println(impirmirCarrito(propiedades, shoppingCart));
+
 				System.out.println("Cual propiedad quieres eliminar del carrito?");
 				s = scan.next();
-				
+
 				shoppingCart.pullItem(s);
 
 				break;
-			case 3:
+			case 3:				
 
+				System.out.println(impirmirCarrito(propiedades, shoppingCart));
+
+				System.out.println("Tienes algun cupon? Este es el momento de ingresarlo");
+
+				s = scan.next();
+
+				float descuento;
+				
+				descuento = cupones.get(s);
+				descuento = (descuento/100);
+				
+				String[] carKeys = shoppingCart.getKeys();
+
+				float total = 0;
+
+				for(int loop=0; loop< carKeys.length;loop++) {
+					total = total + (propiedades.get(carKeys[loop]) * shoppingCart.getCantidad(carKeys[loop]));					
+				}
+				total = total * descuento;
+
+				NumberFormat formatTotal = NumberFormat.getCurrencyInstance();
+				String totalString = formatTotal.format(total);
+
+				System.out.println("Su total es de:" + totalString);
 
 				flag = 1;
 				break;
@@ -155,6 +167,30 @@ public class Main {
 		return mapBuffer;
 	}
 
-	
+	public static String impirmirCarrito(HashMap<String, Integer> p, Carrito car) {
+
+		String[] keys = car.getKeys();
+		int subtotalInt = 0;
+		NumberFormat formatDinero = null;
+
+		String imprimirCarrito = "Tu carrito tiene: \n\nPropiedad - Cantidad - Valor $ por ladrillo\n";
+
+		for(int loop=0; loop<keys.length;loop++) {
+			Integer valorDinero = (Integer) p.get(keys[loop]);
+			formatDinero = NumberFormat.getCurrencyInstance();
+			String stringDinero = formatDinero.format(valorDinero);
+
+			subtotalInt = subtotalInt + (valorDinero*car.getCantidad(keys[loop]));
+
+			imprimirCarrito = imprimirCarrito + keys[loop] + " - " + car.getCantidad(keys[loop]) + " - " + stringDinero + "\n";
+		}
+
+		String subtotalString = formatDinero.format(subtotalInt);
+
+		imprimirCarrito = imprimirCarrito + "\nSubtotal: " + subtotalString + "\n";
+
+		return imprimirCarrito;
+
+	}
 }
 
