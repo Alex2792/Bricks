@@ -85,11 +85,15 @@ public class Main {
 
 				s = scan.next();
 
-				float descuento;
-				
-				descuento = cupones.get(s);
-				descuento = (descuento/100);
-				
+				float descuento = 1;
+
+				if(cupones.get(s)==null)
+					System.out.println("Cupon no valido");
+				else {
+					descuento = cupones.get(s);
+					descuento = (descuento/100);
+				}
+
 				String[] carKeys = shoppingCart.getKeys();
 
 				float total = 0;
