@@ -22,8 +22,6 @@ public class Main {
 		propiedades = filetoHash("propiedades.txt");
 		cupones = filetoHash("cupones.txt");
 
-		//System.out.println(Collections.singletonList(propiedades));	
-		//System.out.println(Collections.singletonList(cupones));
 		/**
 		JFrame ventanaInicial = new JFrame("100ladrillos");		
 		ventanaInicial.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -124,7 +122,7 @@ public class Main {
 				NumberFormat formatTotal = NumberFormat.getCurrencyInstance();
 				String totalString = formatTotal.format(total);
 
-				System.out.println("Su total es de:" + totalString);
+				System.out.println("Su total es de: " + totalString);
 
 				flag = 1;
 				break;
